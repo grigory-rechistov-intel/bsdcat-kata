@@ -1,1 +1,3 @@
 cat
+*.gcda
+*.gcno
