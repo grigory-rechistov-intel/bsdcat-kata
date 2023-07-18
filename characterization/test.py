@@ -6,7 +6,7 @@ import difflib
 import subprocess
 
 
-pathname = os.path.dirname(sys.argv[0]) 
+pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
 os.chdir(pathname)
 
 def print_diff(a, b):
@@ -29,14 +29,17 @@ def main():
 
     input_cases = (
         ([], "output0.ref"),
-        (["input1"], "input1.ref")
+        (["input1"], "input1.ref"),
+        (["-h"], "dash-h.ref"),
     )
 
     for cmdline, reference in input_cases:
-        cmd = ["cat"] + cmdline
+        cmd = ["../cat"] + cmdline
         print(f"{' '.join(cmd)} <-> {reference}", end = "")
         try:
-            output = subprocess.check_output(cmd, stdin=subprocess.DEVNULL).decode()
+            output = subprocess.check_output(cmd,
+                                             stdin=subprocess.DEVNULL,
+                                             stderr=subprocess.STDOUT).decode()
         except subprocess.CalledProcessError as e:
             output = e.output.decode()
 
@@ -55,7 +58,6 @@ def main():
     print("-"* 80)
     print(f"Total {total}, passed {passed}, failed {failed}, skipped {skipped}")
     return failed
-
 
 if __name__ == "__main__":
     failed = main()
