@@ -31,6 +31,7 @@ def main():
         ([], "output0.ref"),
         (["input1"], "input1.ref"),
         (["-h"], "dash-h.ref"),
+        (["-"], "output0.ref"),
     )
 
     for cmdline, reference in input_cases:
