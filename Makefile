@@ -1,4 +1,5 @@
 
+CC=clang
 CFLAGS=-DNO_UDOM_SUPPORT -DBOOTSTRAP_CAT
 
 cat: cat.c
@@ -11,7 +12,7 @@ test: cat
 
 coverage: CFLAGS += --coverage
 coverage: clean cat test
-	gcov cat
+	llvm-cov gcov *.gcno
 	
 cat.c: compat.h Makefile
 	touch cat.c
