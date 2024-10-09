@@ -3,6 +3,8 @@ CFLAGS=-DNO_UDOM_SUPPORT -DBOOTSTRAP_CAT
 
 cat: cat.c
 
+cat.c: cat.h compat.h
+
 clean:
 	rm -rf cat *.gcno *.gcda *.gcov
 
